@@ -1,5 +1,7 @@
 # (Flux) Fluent
-A simplified flux library for TS/JS apps.
+## A simplified flux library for TS/JS apps.
+
+Flux and Redux libraries have too much boilerplate. Keep it simple.
 
 `npm i flux-fluent`
 
