@@ -45,6 +45,8 @@ todoStore.registerReducers([
     }
   )]);
 
+export let dispatch = state.dispatch;
+
 ```
 
 ## TODO
