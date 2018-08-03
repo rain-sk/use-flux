@@ -15,7 +15,7 @@ import { TodoModel } from './models/todo';
 // instantiate a Fluent State
 const state = new Fluent.State();
 
-// create a store with initial values a new Store
+// create a store with initial values
 let todoStore = state.addStore<TodoModel>(
   'todos',
   [
@@ -47,6 +47,13 @@ todoStore.registerReducers([
     }
   )]);
 
+// dispatch an event to the state
+state.dispatch({
+  type: 'ADD_TODO',
+  payload: 'Add a note to the todo store.'
+});
+
+// expose a singleton of the state's dispatch method
 export let dispatch = state.dispatch;
 
 ```
