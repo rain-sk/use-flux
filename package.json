@@ -1,12 +1,12 @@
 {
   "name": "flux-fluent",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Simple flux pattern library for TS/JS applications.",
   "main": "js/index.js",
   "typings": "js/index.d.ts",
   "scripts": {
-    "clean": "rm -rf ./js/",
-    "compile": "npm run clean && tsc"
+    "build": "npm run clean && tsc",
+    "clean": "rm -rf ./js/"
   },
   "author": "spencerudnick",
   "license": "ISC",

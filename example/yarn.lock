@@ -2706,7 +2706,7 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.1"
     readable-stream "^2.0.4"
 
-flux-fluent@^0.0.4:
+flux-fluent@^0.0.6:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/flux-fluent/-/flux-fluent-0.0.4.tgz#51765c20de70a8896095f834d944427a4ec0be43"
   dependencies:
