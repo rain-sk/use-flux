@@ -3,12 +3,26 @@ import { Reducer } from './reducer';
 import { Store } from './store';
 import { Action } from './action';
 
+import { createContext } from 'react';
+
 export namespace Fluent {
   export class State {
     private _state: Map<string, Store<{}>>;
-    private _currentInd: number = -1;
+    private _provider: React.Provider<State>;
+    private _consumer: React.Consumer<State>;
     get state(): Map<string, Store<{}>> {
       return this._state;
+    }
+    get Provider(): React.Provider<State> {
+      return this._provider
+    }
+    get Consumer(): React.Consumer<State> {
+      return this._consumer;
+    }
+    constructor() {
+      const newContext = createContext(this);
+      this._provider = newContext.Provider;
+      this._consumer = newContext.Consumer
     }
     public getStore<T>(name: string): Store<T> {
       let result = null;
@@ -20,7 +34,7 @@ export namespace Fluent {
       if (result != null) {
         return result;
       }
-      throw 'requested non-existent store';
+      throw 'non-existent store requested';
     }
     public setStore<T>(name: string, store: Store<T>): void {
       this._state = this._state.set(name, store);
