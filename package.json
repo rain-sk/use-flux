@@ -1,6 +1,6 @@
 {
   "name": "flux-fluent",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Simple flux pattern library for TS/JS applications.",
   "main": "js/index.js",
   "typings": "js/index.d.ts",
@@ -10,9 +10,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^3.0.1"
+    "typescript": "^3.0.1",
+    "@types/react": "^16.4.2"
   },
   "dependencies": {
-    "immutable": "^3.8.2"
+    "immutable": "^3.8.2",
+    "react": "^16.4.2"
   }
 }
