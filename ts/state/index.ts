@@ -11,11 +11,15 @@ export namespace Fluent {
       return this._state;
     }
     public getStore<T>(name: string): Store<T> {
+      let result = null;
       this._state.forEach((store, storeName) => {
         if (name === storeName) {
-          return store;
+          result = store;
         }
       });
+      if (result != null) {
+        return result;
+      }
       throw 'requested non-existent store';
     }
     public setStore<T>(name: string, store: Store<T>): void {

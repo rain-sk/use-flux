@@ -2,6 +2,10 @@
   "name": "example",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spencerudnick/flux-fluent"
+  },
   "dependencies": {
     "react": "^16.4.2",
     "react-dom": "^16.4.2",

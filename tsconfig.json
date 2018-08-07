@@ -12,6 +12,7 @@
     },
     "exclude": [
         "js",
+        "example",
         "node_modules",
         "typings/globals"
     ]
