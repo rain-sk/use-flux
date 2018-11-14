@@ -1,18 +1,6 @@
-# (Flux) Fluent
-A React.Context factory for creating stateful, self-contained Contexts.
+import * as Fluent from '../lib';
 
-Flux and Redux libraries have too much boilerplate. Keep it simple.
-
-`npm i flux-fluent`
-
-
-Import:
-```typescript
-import * as Fluent from 'flux-fluent';
-```
-
-Prepare state:
-```typescript
+// declare State
 export interface IState extends Fluent.BaseState<IAction> {
   count: number;
   truthiness: boolean;
@@ -21,12 +9,10 @@ export interface IState extends Fluent.BaseState<IAction> {
 const initialState: IState = {
   count: 0,
   truthiness: false,
-  dispatchStack: [] // required for Fluent states
+  dispatchStack: []
 };
-```
 
-Setup reducers:
-```typescript
+// declare Actions
 export type IAction = 'INCREMENT' | 'DECREMENT' | 'TOGGLE_TRUTHINESS';
 
 // and bind Reducers to actions in a Map
@@ -43,23 +29,6 @@ reducers.set('TOGGLE_TRUTHINESS', (state: IState): IState => ({
     ...state,
     truthiness: !state.truthiness
   }));
-```
 
-Finally, create your context:
-```typescript
+// finally, create your context!
 export const [Context, Provider] = Fluent.Factory(initialState, reducers);
-```
-
-Use the `Provider` at a position in the component hierarchy above where it will be consumed:
-```typescript
-export function AComponentWrapper(props: any) {
-  return (
-    <Provider>
-      {props.children}
-      ...
-    </Provider>
-  )
-}
-```
-
-This is a work in progress. As React's Hooks API matures there will likely be changes. Stay tuned!
