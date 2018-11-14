@@ -1,13 +1,23 @@
 {
   "name": "flux-fluent",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "description": "Simple flux pattern library for TS/JS applications.",
-  "main": "js/index.js",
-  "typings": "js/index.d.ts",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
+    "publish": "npm run pre-publish && npm publish dist",
+    "pre-publish": "npm run build && cp package.json README.md .gitignore dist",
     "build": "npm run clean && tsc",
-    "clean": "rm -rf ./js/"
+    "clean": "rm -rf dist"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spencerudnick/flux-fluent.git"
+  },
+  "bugs": {
+    "url": "https://github.com/spencerudnick/flux-fluent/issues"
+  },
+  "homepage": "https://github.com/spencerudnick/flux-fluent#readme",
   "author": "spencerudnick",
   "license": "ISC",
   "devDependencies": {
