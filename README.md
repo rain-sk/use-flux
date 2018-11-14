@@ -47,18 +47,48 @@ reducers.set('TOGGLE_TRUTHINESS', (state: IState): IState => ({
 
 Finally, create your context:
 ```typescript
-export const [Context, Provider] = Fluent.Factory(initialState, reducers);
+export const [SomeContext, SomeProvider] = Fluent.Factory(initialState, reducers);
 ```
 
-Use the `Provider` at a position in the component hierarchy above where it will be consumed:
+Use the `SomeProvider` at a position in the component hierarchy above where it will be consumed:
 ```typescript
-export function AComponentWrapper(props: any) {
+export function AComponentWrapper(props) {
   return (
-    <Provider>
+    <SomeProvider>
       {props.children}
       ...
-    </Provider>
+    </SomeProvider>
   )
+}
+```
+
+Consume with a function component:
+```typescript
+export function SomeNestedComponent(props) {
+  const [context, dispatch] = React.useContext(SomeContext)
+  return (
+    <React.Fragment>
+      <p>count: {context.count}</p>
+      <button
+        type="button"
+        onClick={() => {dispatch({ type: 'INCREMENT' })}}>
+        +
+      </button>
+    </React.Fragment>
+  )
+}
+```
+
+Consume with a class component:
+```typescript
+export class NestedComponentWrapper extends React.Component {
+  render() {
+    <SomeContext.Consumer>
+      {context => (
+        <p>{context.count}</p>
+      )}
+    </SomeContext.Consumer>
+  }
 }
 ```
 
