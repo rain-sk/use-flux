@@ -1,13 +1,12 @@
 {
   "name": "flux-fluent",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Simple flux pattern library for TS/JS applications.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "publish": "npm run pre-publish && npm publish dist",
-    "pre-publish": "npm run build && cp package.json README.md .gitignore dist",
-    "build": "npm run clean && tsc",
+    "publish": "npm run build && npm publish dist",
+    "build": "npm run clean && tsc && cp package.json README.md .gitignore dist",
     "clean": "rm -rf dist"
   },
   "repository": {
@@ -24,6 +23,10 @@
     "@types/react": "^16.7.5",
     "@types/react-dom": "^16.0.9",
     "typescript": "^3.1.6"
+  },
+  "peerDependencies": {
+    "react": "^16.7.0-alpha.2",
+    "react-dom": "^16.7.0-alpha.2"
   },
   "dependencies": {
     "react": "^16.7.0-alpha.2",

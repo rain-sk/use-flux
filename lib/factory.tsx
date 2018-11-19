@@ -38,7 +38,6 @@ export const Factory = <
         let next = { type: action.type, payload: action.payload } as Action<A>;
         while (next)
         {
-            console.log(`reduce: ${next.type}`);
             state = reduce(state, next.type, next.payload);
             [next, ...state.dispatchStack] = state.dispatchStack;
         }
