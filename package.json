@@ -1,11 +1,11 @@
 {
-  "name": "flux-fluent",
+  "name": "use-flux",
   "version": "1.0.2",
   "description": "Simple flux pattern library for TS/JS applications.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "publish": "npm run build && npm publish dist",
+    "publish": "npm publish dist",
     "build": "npm run clean && tsc && cp package.json README.md .gitignore dist",
     "clean": "rm -rf dist"
   },
