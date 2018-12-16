@@ -1,12 +1,12 @@
 {
   "name": "use-flux",
-  "version": "1.0.2",
-  "description": "Simple flux pattern library for TS/JS applications.",
+  "version": "1.0.0",
+  "description": "Flux pattern library for modern React apps.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
     "publish": "npm publish dist",
-    "build": "npm run clean && tsc && cp package.json README.md .gitignore dist",
+    "build": "tsc && cp package.json README.md dist",
     "clean": "rm -rf dist"
   },
   "repository": {
