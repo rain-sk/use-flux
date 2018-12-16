@@ -4,7 +4,7 @@ import { Reducer } from './interfaces/reducer';
 import { BaseState } from './interfaces/base-state';
 import { Action } from './interfaces/action';
 
-export const Factory = <
+export const useFlux = <
         S extends BaseState<A>,
         A extends string
     >(
@@ -39,7 +39,11 @@ export const Factory = <
         while (next)
         {
             state = reduce(state, next.type, next.payload);
-            [next, ...state.dispatchStack] = state.dispatchStack;
+            if (state.dispatchQueue) {
+                [next, ...state.dispatchQueue] = state.dispatchQueue;
+            } else {
+                next = undefined;
+            }
         }
         return state;
     }

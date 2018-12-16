@@ -1,63 +1,54 @@
-# (Flux) Fluent
-A React.Context factory for creating stateful, self-contained Contexts.
+Flux and Redux libraries have too much boilerplate. Keep it Simple.
 
-Flux and Redux libraries have too much boilerplate. Keep it simple.
+# useFlux
 
-`npm i flux-fluent`
+A utility for creating stateful flux stores exposed through the React Context API. Auto-complete for Action names if used with Typescript.
+
+
+`npm i use-flux`
 
 
 Import:
 ```typescript
-import * as Fluent from 'flux-fluent';
+import { BaseState, Reducer, useFlux } from 'use-flux';
 ```
 
 Prepare state:
 ```typescript
-export interface IState extends Fluent.BaseState<IAction> {
+export interface IState extends BaseState<IAction> {
   count: number;
-  truthiness: boolean;
 }
 
 const initialState: IState = {
-  count: 0,
-  truthiness: false,
-  dispatchStack: [] // required for Fluent states
+  count: 0
 };
 ```
 
 Setup reducers:
 ```typescript
-export type IAction = 'INCREMENT' | 'DECREMENT' | 'TOGGLE_TRUTHINESS';
+export type IAction = 'INCREMENT';
 
 // and bind Reducers to actions in a Map
-export const reducers = new Map<IAction, Fluent.Reducer<IState>>();
+export const reducers = new Map<IAction, Reducer<IState>>();
 reducers.set('INCREMENT', (state: IState): IState => ({
     ...state,
     count: state.count + 1
-  }));
-reducers.set('DECREMENT', (state: IState): IState => ({
-    ...state,
-    count: state.count - 1
-  }));
-reducers.set('TOGGLE_TRUTHINESS', (state: IState): IState => ({
-    ...state,
-    truthiness: !state.truthiness
   }));
 ```
 
 Finally, create your context:
 ```typescript
-export const [SomeContext, SomeProvider] = Fluent.Factory(initialState, reducers);
+export const [CountContext, CountProvider] = useFlux(initialState, reducers);
 ```
 
 Use the `SomeProvider` at a position in the component hierarchy above where it will be consumed:
 ```typescript
-export function AComponentWrapper(props) {
+export function App(props) {
   return (
-    <SomeProvider>
+    <CountProvider>
       {props.children}
       ...
-    </SomeProvider>
+    </CountProvider>
   )
 }
 ```
@@ -65,16 +56,16 @@ export function AComponentWrapper(props) {
 Consume with a function component:
 ```typescript
 export function SomeNestedComponent(props) {
-  const [context, dispatch] = React.useContext(SomeContext)
+  const { state, dispatch } = React.useContext(SomeContext)
   return (
-    <React.Fragment>
-      <p>count: {context.count}</p>
+    <section>
+      <p>count: {state.count}</p>
       <button
         type="button"
         onClick={() => {dispatch({ type: 'INCREMENT' })}}>
         +
       </button>
-    </React.Fragment>
+    </section>
   )
 }
 ```
@@ -84,12 +75,12 @@ Consume with a class component:
 export class NestedComponentWrapper extends React.Component {
   render() {
     <SomeContext.Consumer>
-      {context => (
-        <p>{context.count}</p>
+      {({ state }) => (
+        <p>{state.count}</p>
       )}
     </SomeContext.Consumer>
   }
 }
 ```
 
-This is a work in progress. As React's Hooks API matures there will likely be changes. Stay tuned!
+This is a work in progress. As React's Hooks API matures there will be changes. Stay tuned!
