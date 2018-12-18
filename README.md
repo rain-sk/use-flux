@@ -1,5 +1,3 @@
-Flux and Redux libraries have too much boilerplate. Keep it Simple.
-
 # useFlux
 
 A utility for creating stateful flux stores exposed through the React Context API. Auto-complete for Action names if used with Typescript.
