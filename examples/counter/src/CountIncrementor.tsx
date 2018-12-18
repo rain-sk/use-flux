@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { CountContext } from './CountContext';
 
 export const CountIncrementor: React.FunctionComponent = () => {
