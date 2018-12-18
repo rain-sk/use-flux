@@ -26,6 +26,7 @@ const initialState: IState = {
 
 Setup reducers:
 ```typescript
+// name your Actions
 export type Action = 'INCREMENT' | 'DECREMENT';
 
 // and bind Reducers to actions in a Map
@@ -41,9 +42,9 @@ Finally, create your context:
 export const [CountContext, CountProvider] = useFlux(initialState, reducers);
 ```
 
-Use the `CountProvider` at a position in the component hierarchy above where it will be consumed:
+Render `CountProvider` around components which consume it:
 ```typescript
-export function App(props) {
+export function AppContainer(props) {
   return (
     <CountProvider>
       {props.children}
@@ -55,7 +56,7 @@ export function App(props) {
 
 Consume with a class component:
 ```typescript
-export class NestedComponentWrapper extends React.Component {
+export class CountComponent extends React.Component {
   render() {
     <SomeContext.Consumer>
       {({ state }) => (
@@ -68,7 +69,7 @@ export class NestedComponentWrapper extends React.Component {
 
 Consume with a function component and the Hooks API:
 ```typescript
-export function SomeNestedComponent(props) {
+export function Increment(props) {
   const { state, dispatch } = React.useContext(SomeContext)
   return (
     <section>

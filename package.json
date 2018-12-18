@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/spencerudnick/flux-fluent.git"
+    "url": "git+https://github.com/spencerudnick/use-flux.git"
   },
   "bugs": {
-    "url": "https://github.com/spencerudnick/flux-fluent/issues"
+    "url": "https://github.com/spencerudnick/use-flux/issues"
   },
-  "homepage": "https://github.com/spencerudnick/flux-fluent#readme",
+  "homepage": "https://github.com/spencerudnick/use-flux#readme",
   "author": "spencerudnick",
   "license": "ISC",
   "devDependencies": {
