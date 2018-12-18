@@ -15,7 +15,7 @@ import { BaseState, Reducer, useFlux } from 'use-flux';
 
 Prepare state:
 ```typescript
-export interface IState extends BaseState<IAction> {
+export interface IState extends BaseState<Action> {
   count: number;
 }
 
@@ -26,10 +26,10 @@ const initialState: IState = {
 
 Setup reducers:
 ```typescript
-export type IAction = 'INCREMENT';
+export type Action = 'INCREMENT' | 'DECREMENT';
 
 // and bind Reducers to actions in a Map
-export const reducers = new Map<IAction, Reducer<IState>>();
+export const reducers = new Map<Action, Reducer<IState>>();
 reducers.set('INCREMENT', (state: IState): IState => ({
     ...state,
     count: state.count + 1
@@ -41,7 +41,7 @@ Finally, create your context:
 export const [CountContext, CountProvider] = useFlux(initialState, reducers);
 ```
 
-Use the `SomeProvider` at a position in the component hierarchy above where it will be consumed:
+Use the `CountProvider` at a position in the component hierarchy above where it will be consumed:
 ```typescript
 export function App(props) {
   return (
@@ -49,23 +49,6 @@ export function App(props) {
       {props.children}
       ...
     </CountProvider>
-  )
-}
-```
-
-Consume with a function component:
-```typescript
-export function SomeNestedComponent(props) {
-  const { state, dispatch } = React.useContext(SomeContext)
-  return (
-    <section>
-      <p>count: {state.count}</p>
-      <button
-        type="button"
-        onClick={() => {dispatch({ type: 'INCREMENT' })}}>
-        +
-      </button>
-    </section>
   )
 }
 ```
@@ -80,6 +63,23 @@ export class NestedComponentWrapper extends React.Component {
       )}
     </SomeContext.Consumer>
   }
+}
+```
+
+Consume with a function component and the Hooks API:
+```typescript
+export function SomeNestedComponent(props) {
+  const { state, dispatch } = React.useContext(SomeContext)
+  return (
+    <section>
+      <p>count: {state.count}</p>
+      <button
+        type="button"
+        onClick={() => {dispatch({ type: 'INCREMENT' })}}>
+        +
+      </button>
+    </section>
+  )
 }
 ```
 
