@@ -1,26 +1,18 @@
 import { Reducer, useFlux } from 'use-flux';
 
-// define state
-interface ICountState {
-	count: number;
-}
-
-// name state mutations
+// define actions
 type Action = 'INCREMENT' | 'DECREMENT';
 
-// map mutator functions to their names
-const reducers = new Map<Action,Reducer<ICountState>>();
-reducers.set('INCREMENT', (state: ICountState) => ({
-	count: state.count + 1
-}));
-reducers.set('DECREMENT', (state: ICountState) => ({
-	count: state.count - 1
-}));
 
-const count = useFlux({
-	count: 0
-}, reducers);
-// CountContext: can be consumed by class / function components
-export const CountContext = count[0];
-// CountProvider: provides context, handles state changes
-export const CountProvider = count[1];
+// associate actions with reducers
+const reducers = new Map<Action,Reducer<number>>();
+
+reducers.set('INCREMENT', (count: number) => count + 1);
+
+reducers.set('DECREMENT', (count: number) => count - 1);
+
+
+// generate CountContext and CountProvider
+// CountContext: can be consumed by class and function components
+// CountProvider: provides context, reduces actions
+export const [CountContext, CountProvider] = useFlux(42, reducers);
