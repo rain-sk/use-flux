@@ -69,17 +69,14 @@ export class CountComponent extends React.Component {
 
 Consume with a function component and the Hooks API:
 ```typescript
-export function Increment(props) {
-  const { state, dispatch } = React.useContext(SomeContext)
+export const IncrementCount: React.FunctionComponent = (props) => {
+  const { state, dispatch } = React.useContext(CountContext)
   return (
-    <section>
-      <p>count: {state.count}</p>
-      <button
-        type="button"
-        onClick={() => {dispatch({ type: 'INCREMENT' })}}>
-        +
-      </button>
-    </section>
+    <button
+      type="button"
+      onClick={() => {dispatch({ type: 'INCREMENT' })}}>
+      +
+    </button>
   )
 }
 ```
