@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CountContext } from '../contexts/CountContext';
+import { CountContext } from './CountContext';
 
 export const CountDecrementor: React.FunctionComponent = () => {
 	const { dispatch } = React.useContext(CountContext);
