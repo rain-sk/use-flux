@@ -1,6 +1,9 @@
 import { Reducer, useFlux } from 'use-flux';
 
-import { ITodo } from './interfaces/ITodo';
+export interface ITodo {
+	complete: boolean;
+	text: string;
+}
 
 export interface ITodoState {
 	todos: ITodo[];

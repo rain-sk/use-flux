@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import { ITodo } from './interfaces/ITodo';
-import { TodoAction, TodoContext } from './TodoContext';
+import { ITodo, TodoAction, TodoContext } from './TodoContext';
 import { ITodoListItemProps, TodoListItem } from './TodoListItem';
 
 type Dispatch = (value: {

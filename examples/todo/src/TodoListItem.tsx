@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ITodo } from './interfaces/ITodo';
+import { ITodo } from './TodoContext';
 
 export interface ITodoListItemProps {
 	deleteCallback: () => void;
@@ -10,7 +10,7 @@ export interface ITodoListItemProps {
 
 export const TodoListItem: React.FunctionComponent<ITodoListItemProps> = (props) => {
 	return (
-		<li>
+		<li className={`${props.todo.complete ? 'complete' : ''}`}>
 			<label>
 				<input type="checkbox" onChange={props.toggleCallback} checked={props.todo.complete} />
 				{props.todo.text}
