@@ -1,6 +1,6 @@
 {
   "name": "use-flux",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Flux pattern library for modern React apps.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -22,14 +22,14 @@
   "devDependencies": {
     "@types/react": "^16.7.5",
     "@types/react-dom": "^16.0.9",
-    "typescript": "^3.1.6"
+    "typescript": "^3.2.2"
   },
   "peerDependencies": {
-    "react": "^16.7.0-alpha.2",
-    "react-dom": "^16.7.0-alpha.2"
+    "react": "16.7.0-alpha.2",
+    "react-dom": "16.7.0-alpha.2"
   },
   "dependencies": {
-    "react": "^16.7.0-alpha.2",
-    "react-dom": "^16.7.0-alpha.2"
+    "react": "16.7.0-alpha.2",
+    "react-dom": "16.7.0-alpha.2"
   }
 }

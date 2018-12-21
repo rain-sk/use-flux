@@ -1,16 +1,14 @@
 import * as React from 'react';
 
-import { Reducer } from './interfaces/reducer';
-import { BaseState } from './interfaces/base-state';
-import { Action } from './interfaces/action';
+import { Action, BaseState, Reducer } from './interfaces';
 
 export const useFlux = <
-        S extends BaseState<A>,
-        A extends string
-    >(
-        initialState: S,
-        reducers: Map<A, Reducer<S>>
-    ): [
+    S extends BaseState<A>,
+    A extends string
+>(
+    initialState: S,
+    reducers: Map<A, Reducer<S>>
+): [
         React.Context<{
             state: S,
             dispatch: React.Dispatch<{
@@ -26,7 +24,7 @@ export const useFlux = <
             type: A;
             payload?: any;
         }>
-    }>({ state: initialState, dispatch: (value: { type: A, payload?: any }) => {}});
+    }>({ state: initialState, dispatch: (value: { type: A, payload?: any }) => { } });
     function reduce(state: S, action: A, payload?: any) {
         const reducer = reducers.get(action as A);
         if (reducer) {
@@ -36,8 +34,7 @@ export const useFlux = <
     }
     function reducer(state: S, action: { type: A, payload?: any }) {
         let next = { type: action.type, payload: action.payload } as Action<A>;
-        while (next)
-        {
+        while (next) {
             state = reduce(state, next.type, next.payload);
             if (state.dispatchQueue) {
                 [next, ...state.dispatchQueue] = state.dispatchQueue;
@@ -59,5 +56,5 @@ export const useFlux = <
             </context.Provider>
         );
     };
-    return [ context, provider];
+    return [context, provider];
 }
