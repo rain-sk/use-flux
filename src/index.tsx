@@ -26,16 +26,15 @@ export class ActionMap<T extends string, S extends BaseState<T>> {
 export const createFlux = <
   T extends string,
   S extends BaseState<T>
->(
-  initialState: S,
-  reducers: ActionMap<T, BaseState<T>>
-): [
+>(initialState: S): [
+    ActionMap<T, S>,
     Context<{
       state: S,
       dispatch: Dispatch<Action<T>>
     }>,
     StatelessComponent
   ] => {
+  const reducers = new ActionMap<T, S>();
   const context = createContext<{
     state: S,
     dispatch: Dispatch<Action<T>>
@@ -62,7 +61,7 @@ export const createFlux = <
       createElement(context.Provider, { value: contextState } as any, props.children)
     );
   };
-  return [context, provider];
+  return [reducers, context, provider];
 };
 
 export const useFlux = <S, T extends string>(context: Context<{

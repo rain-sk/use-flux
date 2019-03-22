@@ -2,6 +2,7 @@
   "name": "example",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://spencerudnick.github.io/use-flux/",
   "dependencies": {
     "react": "file:../node_modules/react",
     "react-dom": "^16.8.4",
