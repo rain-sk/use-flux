@@ -5,8 +5,7 @@ import { CountUp } from './count-up';
 import { CountDown } from './count-down';
 import { CountProvider } from './flux/count';
 
-const App: React.FunctionComponent = () => {
-
+export const App: React.FunctionComponent = () => {
 	return (
 		<CountProvider>
 			<Count />
@@ -15,5 +14,3 @@ const App: React.FunctionComponent = () => {
 		</CountProvider>
 	);
 }
-
-export default App;
