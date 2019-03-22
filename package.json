@@ -1,35 +1,52 @@
 {
   "name": "use-flux",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Flux pattern library for modern React apps.",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "scripts": {
-    "publish": "cd dist && npm publish",
-    "build": "tsc && cp package.json README.md dist",
-    "clean": "rm -rf dist"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/spencerudnick/use-flux.git"
-  },
-  "bugs": {
-    "url": "https://github.com/spencerudnick/use-flux/issues"
-  },
-  "homepage": "https://github.com/spencerudnick/use-flux#readme",
   "author": "spencerudnick",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/react": "^16.7.5",
-    "@types/react-dom": "^16.0.9",
-    "typescript": "^3.2.2"
+  "license": "MIT",
+  "repository": "spencerudnick/use-flux",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5"
+  },
+  "scripts": {
+    "test": "cross-env CI=1 react-scripts test --env=jsdom --coverage",
+    "test:watch": "react-scripts test --env=jsdom --coverage --watch",
+    "build": "rollup -c",
+    "start": "rollup -c -w",
+    "prepare": "yarn run build",
+    "predeploy": "cd example && yarn install && yarn run build",
+    "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "react": "16.7.0-alpha.2",
-    "react-dom": "16.7.0-alpha.2"
+    "react": "^16.8.0"
   },
-  "dependencies": {
-    "react": "16.7.0-alpha.2",
-    "react-dom": "16.7.0-alpha.2"
-  }
+  "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/runtime": "^7.3.1",
+    "@types/jest": "^23.3.13",
+    "@types/react-dom": "^16.8.2",
+    "@types/react": "^16.8.4",
+    "babel-preset-react-app": "^7.0.0",
+    "cross-env": "^5.2.0",
+    "gh-pages": "^2.0.1",
+    "prettier": "1.16.4",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-scripts": "^2.1.5",
+    "rollup": "^1.2.2",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-peer-deps-external": "^2.2.0",
+    "rollup-plugin-typescript2": "^0.19.2",
+    "rollup-plugin-url": "^2.1.0",
+    "typescript": "^3.3.3"
+  },
+  "files": [
+    "dist"
+  ]
 }
