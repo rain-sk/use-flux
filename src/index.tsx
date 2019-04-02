@@ -64,9 +64,30 @@ export const createFlux = <
   return [reducers, context, provider];
 };
 
-export const useFlux = <S, T extends string>(context: Context<{
+interface IUseFlux {
+  <S, T extends string>(context: Context<{
+    state: S;
+    dispatch: Dispatch<Action<T>>;
+  }>): {
+    state: S;
+    dispatch: Dispatch<Action<T>>;
+  };
+  <S, T extends string, O>(context: Context<{
+    state: S;
+    dispatch: Dispatch<Action<T>>;
+  }>, map: (context: {
+    state: S;
+    dispatch: Dispatch<Action<T>>;
+  }) => O): O;
+}
+
+export const useFlux: IUseFlux = <S, T extends string, O>(context: Context<{
   state: S;
   dispatch: Dispatch<Action<T>>;
-}>) => {
-  return useContext(context);
+}>, map?: (context: {
+  state: S;
+  dispatch: Dispatch<Action<T>>;
+}) => O) => {
+  const ctx = useContext(context);
+  return map ? map(ctx) : ctx;
 }

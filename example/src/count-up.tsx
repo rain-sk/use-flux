@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useFlux } from 'use-flux';
-import { CountContext } from './flux/count';
+import { CountStore } from './flux/count';
 
 export const CountUp: React.FunctionComponent = () => {
-	const dispatch = useFlux(CountContext).dispatch;
+	const dispatch = useFlux(CountStore, store => store.dispatch);
 
 	const callback = () => {
 		dispatch({
