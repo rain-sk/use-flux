@@ -36,7 +36,7 @@
     "prettier": "1.16.4",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
-    "react-scripts": "^2.1.5",
+    "react-scripts-ts": "latest",
     "rollup": "^1.2.2",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^9.2.0",
@@ -44,7 +44,8 @@
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-typescript2": "^0.19.2",
     "rollup-plugin-url": "^2.1.0",
-    "typescript": "^3.3.3"
+    "typescript": "latest",
+    "use-flux": "^2.0.2"
   },
   "files": [
     "dist"
