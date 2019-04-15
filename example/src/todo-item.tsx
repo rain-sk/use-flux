@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { ITodoItem, TodoStore } from './flux/todo';
 import { useFlux } from 'use-flux';
-import { checkTodo, uncheckTodo, deleteTodo } from './flux/todo.reducers';
+import { checkTodo, uncheckTodo, deleteTodo } from './flux/todo.actions';
+import { Pencil } from './icons/pencil';
+import { Cross } from './icons/cross';
+import { TodoEdit } from './todo-edit';
 
 export const TodoItem: React.FunctionComponent<ITodoItem> = props => {
 	const actions = useFlux(TodoStore, store => ({
@@ -13,11 +16,27 @@ export const TodoItem: React.FunctionComponent<ITodoItem> = props => {
 		}
 	}));
 
+	const [editing, setEditing] = React.useState(false);
+	const edit = () => {
+		setEditing(true);
+	}
+	const stopEditing = () => {
+		setEditing(false);
+	}
+
 	return (
-		<li>
-			<input type="checkbox" checked={props.checked} onChange={actions.onChange} />
-			<p>{props.value}</p>
-			<button type="button" onClick={actions.delete}>delete</button>
-		</li>
+		<li data-checked={props.checked}>
+			{!editing
+				? (
+					<>
+						<button className="icon-pencil" type="button" onClick={edit}><Pencil width={15} height={15} /></button>
+						<input id={props.id.toString()} type="checkbox" checked={props.checked} onChange={actions.onChange} />
+						<label htmlFor={props.id.toString()}>{props.value}</label>
+					</>
+				) : (
+					<TodoEdit id={props.id} value={props.value} stopEditingCallback={stopEditing} />
+				)}
+			<button className="icon-cross" type="button" onClick={actions.delete}><Cross width={15} height={15} /></button>
+		</li>  
 	);
 };

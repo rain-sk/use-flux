@@ -1,9 +1,9 @@
-import { createFlux } from 'use-flux';
+import { createFlux, BaseState } from 'use-flux';
+import { createTodo, deleteTodo, checkTodo, uncheckTodo, editTodo, undo, redo, cache } from './todo.reducers';
 
-let _uuid = 0;
 
 // define actions
-export type TodoAction = 'CREATE' | 'CHECK' | 'UNCHECK' | 'DELETE' | 'EDIT';
+export type TodoAction = 'CREATE' | 'CHECK' | 'UNCHECK' | 'DELETE' | 'EDIT' | 'UNDO' | 'REDO' | 'CACHE';
 
 export interface ITodoItem {
 	id: number;
@@ -11,50 +11,30 @@ export interface ITodoItem {
 	checked: boolean;
 }
 
-export interface ITodoState {
+export interface ITodoState extends BaseState<TodoAction> {
 	todos: ITodoItem[];
+	stateStack: ITodoItem[][];
+	stateStackIndex: number;
 }
 
-// associate actions with reducers
-// generate CountContext and CountProvider
-// CountContext: can be consumed by class and function components
-// CountProvider: provides context, reduces actions
 export const [reducers, TodoStore, TodoProvider] = createFlux<TodoAction, ITodoState>({
-	todos: []
+	todos: [],
+	stateStack: [[]],
+	stateStackIndex: 0
 });
 
-reducers.set('CREATE', (state, payload: { value: string }) => ({
-	todos: [...state.todos, {
-		id: _uuid++,
-		value: payload.value,
-		checked: false
-	}]
-}));
+reducers.set('CREATE', createTodo);
 
-reducers.set('DELETE', (state, payload: { id: number }) => ({
-	todos: state.todos.filter(todo => todo.id !== payload.id)
-}));
+reducers.set('DELETE', deleteTodo);
 
-reducers.set('CHECK', (state, payload: { id: number }) => {
-	const todo = state.todos.filter(todo => todo.id === payload.id)[0];
-	todo.checked = true;
-	return {
-		todos: [...state.todos]
-	}
-});
+reducers.set('CHECK', checkTodo);
 
-reducers.set('UNCHECK', (state, payload: { id: number }) => {
-	const todo = state.todos.filter(todo => todo.id === payload.id)[0];
-	todo.checked = false;
-	return {
-		todos: [...state.todos]
-	}
-});
+reducers.set('UNCHECK', uncheckTodo);
 
-reducers.set('EDIT', (state, payload: { id: number, newValue: string }) => {
-	const todo = state.todos.filter(todo => todo.id === payload.id)[0];
-	todo.value = payload.newValue;
-	return {
-		todos: [...state.todos]
-	}
-});
+reducers.set('EDIT', editTodo);
+
+reducers.set('UNDO', undo);
+
+reducers.set('REDO', redo);
+
+reducers.set('CACHE', cache);

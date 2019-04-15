@@ -1,0 +1,60 @@
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+#root {
+	width: 100vw;
+	height: auto;
+	min-height: 100vh;
+	background: rgb(226, 226, 255);
+	font-family: 'Courier New', Courier, monospace;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.todos {
+	text-align: center;
+	max-width: 400px;
+}
+
+ul {
+	list-style-type: none;
+}
+
+input[type=checkbox] {
+	display: none;
+}
+
+li {
+	display: flex;
+	justify-content: space-between;
+}
+
+li[data-checked=true] label {
+	text-decoration: line-through;
+}
+
+nav.undo-redo {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	padding: 1rem;
+}
+
+button[class^="icon-"],
+button[class*=" icon-"] {
+	background: none;
+	border: none;
+	padding: .25rem;
+	fill: #000;
+}
+
+button.icon-undo[disabled=""],
+button.icon-redo[disabled=""] {
+	fill: #aaa;
+}

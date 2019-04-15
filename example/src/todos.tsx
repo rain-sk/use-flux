@@ -2,31 +2,18 @@ import * as React from 'react';
 import { useFlux } from 'use-flux';
 import { TodoStore } from './flux/todo';
 import { TodoItem } from './todo-item';
-import { createTodo } from './flux/todo.reducers';
+import { NewTodo } from './new-todo';
 
 export const Todos: React.FunctionComponent = () => {
 
-	const [newTodoValue, setNewTodoValue] = React.useState('');
-	const newTodoValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setNewTodoValue(e.target.value);
-	}
-
 	const todos = useFlux(TodoStore, (store) => ({
 		incomplete: store.state.todos.filter(todo => todo.checked === false),
-		complete: store.state.todos.filter(todo => todo.checked),
-		create: (e: React.FormEvent<HTMLFormElement>) => {
-			e.preventDefault();
-			store.dispatch(createTodo(newTodoValue));
-			setNewTodoValue('');
-		}
+		complete: store.state.todos.filter(todo => todo.checked)
 	}));
 
 	return (
-		<>
-			<form onSubmit={todos.create}>
-				<input type="text" value={newTodoValue} onChange={newTodoValueChange} />
-				<button>create</button>
-			</form>
+		<section className="todos">
+			<NewTodo />
 			<ul>
 				<h2>Incomplete ({todos.incomplete.length})</h2>
 				{todos.incomplete.map((todo, index) => (
@@ -39,6 +26,6 @@ export const Todos: React.FunctionComponent = () => {
 					<TodoItem key={index} {...todo} />
 				))}
 			</ul>
-		</>
+		</section>
 	)
 }

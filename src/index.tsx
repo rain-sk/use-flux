@@ -49,6 +49,7 @@ export const createFlux = <
         next = undefined;
       }
     }
+    //console.log(state);
     return state;
   };
   const provider: FunctionComponent = (props) => {
