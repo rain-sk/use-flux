@@ -16,7 +16,7 @@ export const NewTodo: React.FunctionComponent = () => {
 	});
 
 	return (
-		<form onSubmit={create}>
+		<form onSubmit={create} className="new-todo">
 			<input type="text" value={newTodoValue} onChange={newTodoValueChange} />
 			<button>create</button>
 		</form>

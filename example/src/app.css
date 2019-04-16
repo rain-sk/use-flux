@@ -17,13 +17,31 @@
 	flex-direction: column;
 }
 
+form button {
+	display: none;
+}
+
+form:focus-within input {
+	background: white;
+}
+
+form input {
+	background: rgba(0,0,0,0);
+	border: dashed 1px black;
+	text-align: center;
+}
+
+.new-todo {
+	margin-bottom: 2em;
+}
+
 .todos {
 	text-align: center;
 	max-width: 400px;
 }
 
-ul {
-	list-style-type: none;
+.todos h2 {
+	margin: .5rem 0;
 }
 
 input[type=checkbox] {

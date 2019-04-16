@@ -4,7 +4,7 @@ import { cacheState } from './todo.actions';
 
 let _uuid = 0;
 
-export const createTodo: Reducer<ITodoState> = (state: ITodoState, payload: { value: string }) => {
+export const CREATE: Reducer<ITodoState> = (state: ITodoState, payload: { value: string }) => {
 	let { todos } = state;
 
 	return {
@@ -18,7 +18,7 @@ export const createTodo: Reducer<ITodoState> = (state: ITodoState, payload: { va
 	}
 };
 
-export const deleteTodo: Reducer<ITodoState> = (state: ITodoState, payload: { id: number }) => {
+export const DELETE: Reducer<ITodoState> = (state: ITodoState, payload: { id: number }) => {
 	let { todos } = state;
 
 	return {
@@ -28,7 +28,7 @@ export const deleteTodo: Reducer<ITodoState> = (state: ITodoState, payload: { id
 	}
 };
 
-export const checkTodo: Reducer<ITodoState> = (state: ITodoState, payload: { id: number }) => {
+export const CHECK: Reducer<ITodoState> = (state: ITodoState, payload: { id: number }) => {
 	let { todos } = state;
 
 	const todo = todos.filter((todo: ITodoItem) => todo.id === payload.id)[0];
@@ -40,7 +40,7 @@ export const checkTodo: Reducer<ITodoState> = (state: ITodoState, payload: { id:
 	}
 };
 
-export const uncheckTodo: Reducer<ITodoState> = (state: ITodoState, payload: { id: number }) => {
+export const UNCHECK: Reducer<ITodoState> = (state: ITodoState, payload: { id: number }) => {
 	let { todos } = state;
 
 	const todo = todos.filter((todo: ITodoItem) => todo.id === payload.id)[0];
@@ -52,7 +52,7 @@ export const uncheckTodo: Reducer<ITodoState> = (state: ITodoState, payload: { i
 	}
 };
 
-export const editTodo: Reducer<ITodoState> = (state: ITodoState, payload: { id: number, newValue: string }) => {
+export const EDIT: Reducer<ITodoState> = (state: ITodoState, payload: { id: number, newValue: string }) => {
 	let { todos } = state;
 
 	const todo = state.todos.filter((todo: ITodoItem) => todo.id === payload.id)[0];
@@ -64,9 +64,8 @@ export const editTodo: Reducer<ITodoState> = (state: ITodoState, payload: { id: 
 	}
 };
 
-export const undo: Reducer<ITodoState> = (state: ITodoState) => {
+export const UNDO: Reducer<ITodoState> = (state: ITodoState) => {
 	let { todos, stateStackIndex, stateStack } = state;
-
 	if (stateStackIndex === 0) {
 		return state;
 	}
@@ -88,7 +87,7 @@ export const undo: Reducer<ITodoState> = (state: ITodoState) => {
 	};
 };
 
-export const redo: Reducer<ITodoState> = (state: ITodoState) => {
+export const REDO: Reducer<ITodoState> = (state: ITodoState) => {
 	const stateStackIndex = Math.min(state.stateStackIndex + 1, state.stateStack.length - 1);
 	const todos = [...state.stateStack[stateStackIndex]];
 	return {
@@ -98,13 +97,14 @@ export const redo: Reducer<ITodoState> = (state: ITodoState) => {
 	};
 };
 
-export const cache: Reducer<ITodoState> = (state: ITodoState) => {
+export const CACHE: Reducer<ITodoState> = (state: ITodoState) => {
 	let { todos, stateStack, stateStackIndex } = state;
 
-	stateStack = stateStackIndex + 1 < stateStack.length
-		? [...stateStack.splice(0, stateStackIndex)]
-		: [...stateStack, [...todos]];
+	if (stateStackIndex + 1 < stateStack.length) {
+		stateStack = [...stateStack.slice(0, stateStackIndex + 1)];
+	}
 
+	stateStack = [...stateStack, [...todos]];
 	stateStackIndex = stateStack.length - 1;
 
 	return {

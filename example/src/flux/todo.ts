@@ -1,5 +1,5 @@
 import { createFlux, BaseState } from 'use-flux';
-import { createTodo, deleteTodo, checkTodo, uncheckTodo, editTodo, undo, redo, cache } from './todo.reducers';
+import { CREATE, DELETE, CHECK, UNCHECK, EDIT, UNDO, REDO, CACHE } from './todo.reducers';
 
 
 // define actions
@@ -23,18 +23,18 @@ export const [reducers, TodoStore, TodoProvider] = createFlux<TodoAction, ITodoS
 	stateStackIndex: 0
 });
 
-reducers.set('CREATE', createTodo);
+reducers.set('CREATE', CREATE);
 
-reducers.set('DELETE', deleteTodo);
+reducers.set('DELETE', DELETE);
 
-reducers.set('CHECK', checkTodo);
+reducers.set('CHECK', CHECK);
 
-reducers.set('UNCHECK', uncheckTodo);
+reducers.set('UNCHECK', UNCHECK);
 
-reducers.set('EDIT', editTodo);
+reducers.set('EDIT', EDIT);
 
-reducers.set('UNDO', undo);
+reducers.set('UNDO', UNDO);
 
-reducers.set('REDO', redo);
+reducers.set('REDO', REDO);
 
-reducers.set('CACHE', cache);
+reducers.set('CACHE', CACHE);

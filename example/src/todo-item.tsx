@@ -32,11 +32,11 @@ export const TodoItem: React.FunctionComponent<ITodoItem> = props => {
 						<button className="icon-pencil" type="button" onClick={edit}><Pencil width={15} height={15} /></button>
 						<input id={props.id.toString()} type="checkbox" checked={props.checked} onChange={actions.onChange} />
 						<label htmlFor={props.id.toString()}>{props.value}</label>
+						<button className="icon-cross" type="button" onClick={actions.delete}><Cross width={15} height={15} /></button>
 					</>
 				) : (
 					<TodoEdit id={props.id} value={props.value} stopEditingCallback={stopEditing} />
 				)}
-			<button className="icon-cross" type="button" onClick={actions.delete}><Cross width={15} height={15} /></button>
-		</li>  
+		</li>
 	);
 };
