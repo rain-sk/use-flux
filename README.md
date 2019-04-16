@@ -1,6 +1,6 @@
-# useFlux
+# use-flux
 
-A utility for creating stateful flux stores exposed through the React Context API. Auto-complete for Action names if used with Typescript.
+A library for exposing stores through React Context and managing state using the flux pattern. Leverages and supports React Hooks.
 
 `npm i use-flux -s`
 
@@ -8,14 +8,9 @@ Example:
 ```tsx
 import { createFlux } from 'use-flux';
 
-// define actions
 type CountAction = 'INCREMENT' | 'DECREMENT';
 
-// associate actions with reducers
-// generate CountContext and CountProvider
-// CountContext: can be consumed by class and function components
-// CountProvider: provides context, reduces actions
-export const [reducers, CountContext, CountProvider] = createFlux<CountAction, number>(42);
+export const [reducers, CountStore, CountProvider] = createFlux<CountAction, number>(42);
 
 reducers.set('INCREMENT', (count: number) => ++count);
 reducers.set('DECREMENT', (count: number) => --count);
@@ -46,10 +41,10 @@ Example consumer
 import * as React from 'react';
 
 import { useFlux } from 'use-flux';
-import { CountContext } from './flux/count';
+import { CountStore } from './flux/count';
 
 export const Count: React.FunctionComponent = () => {
-	const count = useFlux(CountContext).state;
+	const count = useFlux(CountStore, store => store.state);
 
 	return (
 		<p>count: {count}</p>
@@ -62,21 +57,19 @@ Example dispatcher
 import * as React from 'react';
 
 import { useFlux } from 'use-flux';
-import { CountContext } from './flux/count';
+import { CountStore } from './flux/count';
 
 export const CountUp: React.FunctionComponent = () => {
-	const dispatch = useFlux(CountContext).dispatch;
-
-	const callback = () => {
+	const increment = useFlux(CountStore, store => () => {
 		dispatch({
 			type: 'INCREMENT'
 		});
-	};
+	});
 
 	return (
-		<button type="button" onClick={callback}>+</button>
+		<button type="button" onClick={increment}>+</button>
 	);
 }
 ```
 
-Check out [/example](https://github.com/spencerudnick/use-flux/tree/master/example) for more details!
+Check out [/example](https://github.com/spencerudnick/use-flux/tree/master/example) for more a more complicated implementation!
