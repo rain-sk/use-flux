@@ -4,7 +4,7 @@ import { TodoStore } from './flux/todo';
 import { undo, redo } from './flux/todo.actions';
 import { Redo } from './icons/redo';
 import { Undo } from './icons/undo';
-import { Listener } from './listeners/keydown';
+import { KeydownListener } from './listeners/keydown';
 
 export const UndoRedo: React.FunctionComponent = () => {
 	const actions = useFlux(TodoStore, store => ({
@@ -18,7 +18,7 @@ export const UndoRedo: React.FunctionComponent = () => {
 				<button className="icon-undo" type="button" disabled={!actions.undo} onClick={actions.undo}><Undo /></button>
 				<button className="icon-undo" type="button" disabled={!actions.redo} onClick={actions.redo}><Redo /></button>
 			</nav>
-			<Listener />
+			<KeydownListener />
 		</>
 
 	)
