@@ -20,7 +20,6 @@ export const UndoRedo: React.FunctionComponent = () => {
 			</nav>
 			{actions.undo ? <KeyboardListener event={'keydown'} keyCode={90} callback={actions.undo} /> : null}
 			{actions.redo ? <KeyboardListener event={'keydown'} keyCode={88} callback={actions.redo} /> : null}
-
 		</>
 
 	)

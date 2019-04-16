@@ -5,7 +5,7 @@ import { cacheState } from './todo.actions';
 let _uuid = 0;
 
 export const CREATE: Reducer<ITodoState> = (state: ITodoState, payload: { value: string }) => {
-	let { todos } = state;
+	const { todos } = state;
 
 	return {
 		...state,
@@ -19,7 +19,7 @@ export const CREATE: Reducer<ITodoState> = (state: ITodoState, payload: { value:
 };
 
 export const DELETE: Reducer<ITodoState> = (state: ITodoState, payload: { id: number }) => {
-	let { todos } = state;
+	const { todos } = state;
 
 	return {
 		...state,
@@ -29,10 +29,17 @@ export const DELETE: Reducer<ITodoState> = (state: ITodoState, payload: { id: nu
 };
 
 export const CHECK: Reducer<ITodoState> = (state: ITodoState, payload: { id: number }) => {
-	let { todos } = state;
+	const { todos } = state;
 
-	const todo = todos.filter((todo: ITodoItem) => todo.id === payload.id)[0];
-	todo.checked = true;
+	for (let i = 0; i < todos.length; i++) {
+		if (todos[i].id === payload.id) {
+			todos[i] = {
+				...todos[i],
+				checked: true
+			};
+		}
+	}
+
 	return {
 		...state,
 		todos: [...todos],
@@ -41,10 +48,17 @@ export const CHECK: Reducer<ITodoState> = (state: ITodoState, payload: { id: num
 };
 
 export const UNCHECK: Reducer<ITodoState> = (state: ITodoState, payload: { id: number }) => {
-	let { todos } = state;
+	const { todos } = state;
 
-	const todo = todos.filter((todo: ITodoItem) => todo.id === payload.id)[0];
-	todo.checked = false;
+	for (let i = 0; i < todos.length; i++) {
+		if (todos[i].id === payload.id) {
+			todos[i] = {
+				...todos[i],
+				checked: false
+			};
+		}
+	}
+
 	return {
 		...state,
 		todos: [...todos],
@@ -53,13 +67,20 @@ export const UNCHECK: Reducer<ITodoState> = (state: ITodoState, payload: { id: n
 };
 
 export const EDIT: Reducer<ITodoState> = (state: ITodoState, payload: { id: number, newValue: string }) => {
-	let { todos } = state;
+	const todos = [...state.todos];
 
-	const todo = state.todos.filter((todo: ITodoItem) => todo.id === payload.id)[0];
-	todo.value = payload.newValue;
+	for (let i = 0; i < todos.length; i++) {
+		if (todos[i].id === payload.id) {
+			todos[i] = {
+				...todos[i],
+				value: payload.newValue
+			};
+		}
+	}
+
 	return {
 		...state,
-		todos: [...todos],
+		todos,
 		dispatchQueue: [cacheState()]
 	}
 };
