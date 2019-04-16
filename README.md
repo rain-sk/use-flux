@@ -61,7 +61,7 @@ import { CountStore } from './flux/count';
 
 export const CountUp: React.FunctionComponent = () => {
 	const increment = useFlux(CountStore, store => () => {
-		dispatch({
+		store.dispatch({
 			type: 'INCREMENT'
 		});
 	});
