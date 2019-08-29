@@ -5,15 +5,11 @@ export interface Action<T extends string> {
   payload?: any
 }
 
-export interface BaseState<T extends string> extends Object {
-  dispatchQueue?: Action<T>[];
-}
-
 export interface Reducer<S> {
   (state: S, payload?: any): S;
 }
 
-export class ActionMap<T extends string, S extends BaseState<T>> {
+export class ActionMap<T extends string, S> {
   constructor(private _map: Map<T, Reducer<S>> = new Map<T, Reducer<S>>()) { }
   public set(action: T, reducer: Reducer<S>) {
     this._map.set(action, reducer);
@@ -25,7 +21,7 @@ export class ActionMap<T extends string, S extends BaseState<T>> {
 }
 export const createFlux = <
   T extends string,
-  S extends BaseState<T>
+  S
 >(initialState: S): [
     ActionMap<T, S>,
     Context<{
@@ -40,19 +36,9 @@ export const createFlux = <
     dispatch: Dispatch<Action<T>>
   }>({ state: initialState, dispatch: () => { } });
   const reducer = (state: S, action: Action<T>) => {
-    let next: Action<T> | undefined = { type: action.type, payload: action.payload };
-    while (next) {
-      state = reducers.reduce(state, next) as S;
-      if (state.dispatchQueue) {
-        [next, ...state.dispatchQueue] = state.dispatchQueue;
-      } else {
-        next = undefined;
-      }
-    }
-    //console.log(state);
-    return state;
+    return reducers.reduce(state, action);
   };
-  const provider: FunctionComponent = (props) => {
+  const provider: FunctionComponent = (props: any) => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const contextState = {
       state,
